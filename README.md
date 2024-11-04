@@ -1,5 +1,21 @@
 # taller_ESMValTool_CLIMCAT
 
+## CLIMCAT structure
+
+### CMIP6:
+
+climcat/CMIP6/
+
+### CORDEX:
+
+climcat/CORDEX/
+
+### OBS:
+
+climcat/OBS/Tier{tier}/{dataset}
+
+## References:
+
 Web:
 https://esmvaltool.org/ 
 

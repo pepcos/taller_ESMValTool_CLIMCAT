@@ -1,0 +1,36 @@
+# ESMValTool
+
+# See https://docs.esmvaltool.org/projects/esmvalcore/en/latest/recipe/overview.html
+# for a description of the recipe format.
+---
+documentation:
+  description: | 
+    ...
+  title:
+  authors:
+    -
+
+datasets:
+  - 
+# config-developer:
+# BADC: '{activity}/{institute}/{dataset}/{exp}/{ensemble}/{mip}/{short_name}/{grid}/{version}'
+# input_file: '{short_name}_{mip}_{dataset}_{exp}_{ensemble}_{grid}*.nc'
+
+preprocessors:
+  
+
+diagnostics:
+  <diagnostic_name>:
+    variables:
+      <short_name>:
+        short_name:
+        mip: 
+        preprocessor: 
+        timerange: 
+        caption: |
+          caption  
+      
+    scripts: null
+      <script_name>:
+        script: /home/pepcos/examples/esmval_diagnostic.py
+    
