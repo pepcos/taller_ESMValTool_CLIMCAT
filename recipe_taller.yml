@@ -83,7 +83,7 @@ diagnostics:
       #   savefig: tas_clim_global.png
       tas_mean_global:
         short_name: tas
-        mip: Amon
+        mip: day
         preprocessor: djf_mean_global
         timerange: 2001/2001
         caption: |
