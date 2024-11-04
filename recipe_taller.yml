@@ -48,22 +48,22 @@ preprocessors:
 
 
   djf_mean_global:
-    extract_season:
-      season: djf
-    seasonal_statistics:
-      operator: mean
-      seasons: ["DJF"]
+    # extract_season:
+    #   season: djf
+    # seasonal_statistics:
+    #   operator: mean
+    #   seasons: ["DJF"]
     area_statistics:
       operator: mean
-    anomalies:
-      period: seasonal
-      reference: 
-        start_year: 2001
-        start_month: 1
-        start_day: 1
-        end_year: 2030
-        end_month: 12
-        end_day: 31
+    # anomalies:
+    #   period: seasonal
+    #   reference: 
+    #     start_year: 2001
+    #     start_month: 1
+    #     start_day: 1
+    #     end_year: 2030
+    #     end_month: 12
+    #     end_day: 31
     multi_model_statistics:
       statistics:
         - mean
@@ -73,19 +73,19 @@ preprocessors:
 diagnostics:
   global_vs_regional:
     variables:
-      tas_clim_global:
-        short_name: tas
-        mip: Amon
-        preprocessor: djf_clim_global
-        timerange: 2001/2030
-        caption: |
-          Global map of {title} in period 2001-2030.  
-        savefig: tas_clim_global.png
+      # tas_clim_global:
+      #   short_name: tas
+      #   mip: Amon
+      #   preprocessor: djf_clim_global
+      #   timerange: 2001/2030
+      #   caption: |
+      #     Global map of {title} in period 2001-2030.  
+      #   savefig: tas_clim_global.png
       tas_mean_global:
         short_name: tas
         mip: Amon
         preprocessor: djf_mean_global
-        timerange: 2001/2060
+        timerange: 2001/2001
         caption: |
           {title}; climatology 2001-2030.
         savefig: tas_mean_global.png
