@@ -1,0 +1,99 @@
+# ESMValTool
+
+# See https://docs.esmvaltool.org/projects/esmvalcore/en/latest/recipe/overview.html
+# for a description of the recipe format.
+---
+documentation:
+  description: |
+    Example recipe that plots a map and timeseries of temperature.
+
+  title: Recipe that runs an example diagnostic written in Python.
+
+  authors:
+    - cos_josep
+
+
+datasets:
+  # 2 ways of calling a dataset:
+  - {dataset: BCC-CSM2-MR, project: CMIP6, exp: [historical, ssp585], ensemble: r1i1p1f1, grid: gn}
+  - dataset: GISS-E2-1-G
+    ensemble: r1i1p1f2
+    exp:
+    - historical
+    - ssp585
+    grid: gn
+    mip: Amon
+    project: CMIP6
+
+preprocessors:
+  djf_clim_global: 
+    convert_units:
+      units: degrees_C
+    regrid:
+      target_grid: 1.5x1.5
+      scheme:
+        reference: esmf_regrid.schemes:ESMFBilinear
+        use_src_mask: True
+    extract_season:
+      season: djf
+    climate_statistics:
+      operator: mean
+      seasons: ["DJF"]
+    multi_model_statistics:
+      statistics:
+        - mean
+      span: overlap
+      keep_input_datasets: False
+      ignore_scalar_coords: True
+
+
+  djf_mean_global:
+    extract_season:
+      season: djf
+    seasonal_statistics:
+      operator: mean
+      seasons: ["DJF"]
+    area_statistics:
+      operator: mean
+    anomalies:
+      period: seasonal
+      reference: 
+        start_year: 2001
+        start_month: 1
+        start_day: 1
+        end_year: 2030
+        end_month: 12
+        end_day: 31
+    multi_model_statistics:
+      statistics:
+        - mean
+      span: overlap
+    
+
+diagnostics:
+  global_vs_regional:
+    variables:
+      tas_clim_global:
+        short_name: tas
+        mip: Amon
+        preprocessor: djf_clim_global
+        timerange: 2001/2030
+        caption: |
+          Global map of {title} in period 2001-2030.  
+        savefig: tas_clim_global.png
+      tas_mean_global:
+        short_name: tas
+        mip: Amon
+        preprocessor: djf_mean_global
+        timerange: 2001/2060
+        caption: |
+          {title}; climatology 2001-2030.
+        savefig: tas_mean_global.png
+      
+    scripts:
+      script_example_py:
+        script: /home/clima/taller_ESMValTool_CLIMCAT/esmval_diagnostic.py
+        cmap: Reds
+      script_example_R:
+        script: /home/clima/taller_ESMValTool_CLIMCAT/esmval_diagnostic.R
+    
