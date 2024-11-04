@@ -22,7 +22,6 @@ datasets:
     - historical
     - ssp585
     grid: gn
-    mip: Amon
     project: CMIP6
 
 preprocessors:
