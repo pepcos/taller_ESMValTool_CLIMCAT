@@ -4,15 +4,15 @@
 
 ### CMIP6:
 
-climcat/CMIP6/
+/data/climcat/CMIP6/
 
 ### CORDEX:
 
-climcat/CORDEX/
+/data/climcat/cordex/
 
 ### OBS:
 
-climcat/OBS/Tier{tier}/{dataset}
+/data/climcat/Tier{tier}/
 
 ## References:
 
