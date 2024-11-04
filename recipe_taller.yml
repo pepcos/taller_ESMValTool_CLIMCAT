@@ -16,8 +16,8 @@ documentation:
 datasets:
   # 2 ways of calling a dataset:
   - {dataset: BCC-CSM2-MR, project: CMIP6, exp: [historical, ssp585], ensemble: r1i1p1f1, grid: gn}
-  - dataset: GISS-E2-1-G
-    ensemble: r1i1p1f2
+  - dataset: CanESM5
+    ensemble: r1i1p1f1
     exp:
     - historical
     - ssp585
