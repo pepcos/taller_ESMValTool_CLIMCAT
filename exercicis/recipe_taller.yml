@@ -1,0 +1,122 @@
+# ESMValTool
+
+# See https://docs.esmvaltool.org/projects/esmvalcore/en/latest/recipe/overview.html
+# for a description of the recipe format.
+---
+documentation:
+  description: |
+    Extreure un nivell de pressió d’una variable donada i per a un conjunt de models.
+    Ex: extreure l’altura del geopotencial a 500 hPa per a l’ERA5 per al domini de l’Atlàntic Nord. 
+
+    Calcular la tendència temporal d’una variable i eliminar-la de la sèrie de partida. 
+    Ex: treure l’expansió tèrmica com a conseqüència de l’escalfament global del camp d’altura 
+    geopotencial (hgt) a 500 hPa al domini de l’Atlàntic Nord. 
+
+    Calcular patrons de variabilitat climàtica per a un període climàtic de referència i calcular 
+    la projecció dels patrons sobre els camps d’anomalia.  
+
+    Ex: treure les EOF rotades a partir de la matriu de covariància espacial de l’anomalia de 
+    l’altura geopotencial a 500 hPa durant el període 1950-1980 i calcular la seua projecció 
+    sobre la sèrie d’anomalia pesada pel cosinus de la latitud per a la sèrie del
+    període 1940-2020.  
+
+    Calcular significativitats estadístiques de sèries de dades. Ex: calcular la significativitat 
+    estadística de l’evolució de les CP calculades en el punt anterior per a cada punt de malla del domini.  
+
+    Càlcul de funcions de distribució, histogrames en el seu defecte (segons diversos mètodes).
+    Ex. Calcular la PDF de les CP per al període 1950-1980.  
+
+    Correlacions temporals/espacials. Ex. Calcular la correlació espacial de la sèrie de CP amb la
+    malla de precipitació d’ERA5. 
+
+  title: Recipe that runs an example diagnostic written in Python.
+  authors:
+    - cos_josep
+
+
+datasets:
+- dataset: ERA5
+  type: reanaly
+  tier: 2
+  version: v1
+  grid: gn
+  project: OBS6
+
+preprocessors:
+  NAtl_500: 
+    detrend:
+      dimension: time
+      method: linear
+    # extract_levels:
+    #   levels: [50000.]
+    #   scheme: nearest
+    monthly_statistics:
+      operator: mean 
+    extract_region:
+      start_longitude: -60
+      end_longitude: 0
+      start_latitude: 15
+      end_latitude: 70
+    anomalies:
+      period: month
+      reference:
+        start_day: 1
+        start_month: 1
+        start_year: 1950
+        end_day: 1
+        end_month: 1
+        end_year: 1980
+
+  projectables:
+    anomalies:
+      period: month
+      reference:
+        start_day: 1
+        start_month: 1
+        start_year: 1950
+        end_day: 1
+        end_month: 1
+        end_year: 1980
+    monthly_statistics:
+      operator: mean 
+    extract_region:
+      start_longitude: -20
+      end_longitude: 50
+      start_latitude: 35
+      end_latitude: 60
+
+
+diagnostics:
+  EOFS:
+    variables:
+      # g500:
+        # short_name: zg
+      psl:
+        # mip: Amon
+        mip: 6hrPlevPt
+        timerange: 1950/1980
+        preprocessor: NAtl_500
+        # mip: day
+    scripts: #null
+      script_eofs:
+        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/eofs.py
+        cmap: Reds
+
+  projections:
+    variables:
+      pr:
+        # mip: Amon
+        mip: day
+        timerange: &timerange 1950/2020
+        preprocessor: projectables
+        # mip: day
+      tas:
+        mip: day
+        preprocessor: projectables # Percentile series
+        timerange: *timerange
+    scripts: 
+      script_projections:
+        ancestors: [EOFS/script_eofs]
+        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/projections.py
+        cmap: Reds
+    
