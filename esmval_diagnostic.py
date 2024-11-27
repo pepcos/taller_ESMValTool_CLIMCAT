@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import iris.quickplot as qplt
 import iris.plot as iplt
 import numpy as np
-
+import matplotlib.ticker as ticker
 import iris
 
 from esmvaltool.diag_scripts.shared import (
@@ -34,11 +34,13 @@ def plot_diagnostic(groups, cfg):
             if "month_number" in dim_name:
                 time_coord = np.arange(1,13)
             else:
-                time_coord = [i.year for i in cube.coord("time").units.num2date(cube.coord("time").points)]
+                time_coord = [i.strftime("%Y-%m-%d") for i in cube.coord("time").units.num2date(cube.coord("time").points)]
             if attributes['dataset'] == "MultiModelMean":
                 plt.plot(time_coord, cube.data, color="black")
             else:
                 plt.plot(time_coord, cube.data, alpha=0.5)
+            plt.gca().xaxis.set_major_locator(ticker.MaxNLocator(10))
+            plt.xticks(rotation=90)
 
     title = cube.long_name
     plt.ylabel(f"{cube.standard_name} / degC")
