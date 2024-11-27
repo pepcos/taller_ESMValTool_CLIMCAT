@@ -5,7 +5,20 @@
 ---
 documentation:
   description: |
-    Example recipe that plots a map and timeseries of temperature.
+    Canvi d’agregació temporals per a una variable determinada. Ex: de temperatura diària a mensual. 
+
+    Reprojeccions de models a una malla comuna  i per a un domini geogràfic d’interès.
+    Ex: temperatura mensual dels models CMIP6 a Europa a 1ºx 1º 
+
+    Càlcul de valors amitjanats interanualment. Exemple: càlcul de la temperatura mitjana dels mesos de maig i juny. 
+
+    Extracció temporal i/o espacial d’una(es) variable(s) a partir d’un o una selecció de models. A partir d’aquesta(es)
+    sèrie(s) resultant(s), calcular diferències respecte d’un període de control. Representar aquesta(es) diferència(es).
+    Ex: extreure la temperatura mitjana de maig-juny dels models de CMIP6  a la conca Mediterrània. 
+
+    A partir de l’extracció anterior, calcular percentils, medianes i altres estadístics d’interès per a cada punt de 
+    malla del domini d’interès i/o valors areals d’un domini geogràfic.
+    Ex: per al cas de la temperatura mitjana dels mesos de maig-juny.  
 
   title: Recipe that runs an example diagnostic written in Python.
 
@@ -25,74 +38,74 @@ datasets:
     project: CMIP6
 
 preprocessors:
-  djf_clim_global: 
+
+  mj_eur_anomalies: &general
+    custom_order: true 
     convert_units:
       units: degrees_C
     regrid:
-      target_grid: 1.5x1.5
-      scheme:
-        reference: esmf_regrid.schemes:ESMFBilinear
-        use_src_mask: True
+      target_grid: 1x1
+      scheme: linear
+        # reference: esmf_regrid.schemes:ESMFBilinear
+        # use_src_mask: True
+    monthly_statistcs:
+      operator: mean
     extract_season:
-      season: djf
-    climate_statistics:
-      operator: mean
-      seasons: ["DJF"]
-    multi_model_statistics:
-      statistics:
-        - mean
-      span: overlap
-      keep_input_datasets: False
-      ignore_scalar_coords: True
+      season: MJ
+    extract_region:
+      start_longitude: -10
+      end_longitude: 50
+      start_laitude: 35
+      end_latitude: 70
+    anomalies:
+      period: month
+      reference:
+        start_day: 1
+        start_month: 1
+        start_year: 1981
+        end_day: 1
+        end_month: 1
+        end_year: 2011
+    extract_time:
+      start_day: 1
+      start_month: 1
+      start_year: 2025
+      end_day: 1
+      end_month: 1
+      end_year: 2055
+
+    mj_eur_clim:
+      custom_order: true
+      <<: *general
+      seasonal_statistics:
+        operator: mean
+
+    mj_eur_:
+      custom_order: true
+      <<: *general
 
 
-  djf_mean_global:
-    # extract_season:
-    #   season: djf
-    # seasonal_statistics:
-    #   operator: mean
-    #   seasons: ["DJF"]
-    area_statistics:
-      operator: mean
-    # anomalies:
-    #   period: seasonal
-    #   reference: 
-    #     start_year: 2001
-    #     start_month: 1
-    #     start_day: 1
-    #     end_year: 2030
-    #     end_month: 12
-    #     end_day: 31
-    multi_model_statistics:
-      statistics:
-        - mean
-      span: overlap
-    
+
 
 diagnostics:
   global_vs_regional:
     variables:
-      # tas_clim_global:
-      #   short_name: tas
-      #   mip: Amon
-      #   preprocessor: djf_clim_global
-      #   timerange: 2001/2030
-      #   caption: |
-      #     Global map of {title} in period 2001-2030.  
-      #   savefig: tas_clim_global.png
-      tas_mean_global:
+      tas_clim:
         short_name: tas
-        mip: day
-        preprocessor: djf_mean_global
-        timerange: 2001/2001
-        caption: |
-          {title}; climatology 2001-2030.
-        savefig: tas_mean_global.png
+        # mip: day
+        mip: Amon
+        preprocessor: mj_eur_clim
+        timerange: 1981/2054
+      # tas_:
+      #   short_name: tas
+      #   mip: day
+      #   preprocessor: mj_eur_
+      #   timerange: 1981/2054
       
-    scripts:
+    scripts: 
       script_example_py:
         script: /home/clima/taller_ESMValTool_CLIMCAT/esmval_diagnostic.py
         cmap: Reds
-      script_example_R:
-        script: /home/clima/taller_ESMValTool_CLIMCAT/esmval_diagnostic.R
+      # script_example_R:
+      #   script: /home/clima/taller_ESMValTool_CLIMCAT/esmval_diagnostic.R
     
