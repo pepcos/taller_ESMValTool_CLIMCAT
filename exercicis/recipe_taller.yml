@@ -47,13 +47,13 @@ preprocessors:
     detrend:
       dimension: time
       method: linear
-    # extract_levels:
-    #   levels: [50000.]
-    #   scheme: nearest
+    extract_levels:
+      levels: [50000.]
+      scheme: nearest
     monthly_statistics:
       operator: mean 
     extract_region:
-      start_longitude: -60
+      start_longitude: -70
       end_longitude: 0
       start_latitude: 15
       end_latitude: 70
@@ -90,7 +90,7 @@ diagnostics:
   EOFS:
     variables:
       # g500:
-        # short_name: zg
+      #   short_name: zg
       psl:
         # mip: Amon
         mip: 6hrPlevPt
@@ -116,7 +116,7 @@ diagnostics:
         timerange: *timerange
     scripts: 
       script_projections:
-        ancestors: [EOFS/script_eofs]
+        ancestors: [EOFS/script_eofs, projections/tas, projections/pr]
         script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/projections.py
         cmap: Reds
     
