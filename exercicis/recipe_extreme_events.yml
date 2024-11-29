@@ -1,0 +1,98 @@
+# ESMValTool
+# recipe_ExtremeEvents.yml
+---
+documentation:
+  title: Extreme Events Indices
+
+  description: |
+     Calculate indices for monitoring changes in extremes based on daily temperature
+     and precipitation data. Producing Glecker and timeline plots of this as
+     shown in the IPCC_AR4 report
+
+  authors:
+    - broetz_bjoern
+    - sandstad_marit
+    - mohr_christianwilhelm
+    - arnone_enrico
+    - vonhardenberg_jost
+
+  maintainer:
+    - sandstad_marit
+
+  references:
+    - zhang11wcc
+
+  projects:
+    - crescendo
+    - c3s-magic
+
+#preprocessor:
+#  prep0:
+
+datasets:
+- dataset: ERA5
+  type: reanaly
+  tier: 2
+  version: v1
+  grid: gn
+  project: OBS6
+- dataset: CanESM5
+  ensemble: r1i1p1f1
+  exp:
+  - historical
+  grid: gn
+  project: CMIP6
+- dataset: MIROC6
+  ensemble: r1i1p1f1
+  exp:
+  - historical
+  grid: gn
+  project: CMIP6
+- dataset: ACCESS-CM2
+  ensemble: r1i1p1f1
+  exp:
+  - historical
+  grid: gn
+  project: CMIP6
+- dataset: ACCESS-ESM1-5
+  ensemble: r1i1p1f1
+  exp:
+  - historical
+  grid: gn
+  project: CMIP6
+- dataset: MPI-ESM1-2-LR
+  ensemble: r1i1p1f1
+  exp:
+  - historical
+  grid: gn
+  project: CMIP6
+
+diagnostics:
+  extreme_events:
+    description: calculate extreme events
+    variables:
+      pr:
+        mip: day
+        timerange: 1981/2000
+      tas:
+        mip: day
+        timerange: 1981/2000
+      tasmax:
+        mip: day
+        timerange: 1981/2000
+      tasmin:
+        mip: day
+        timerange: 1981/2000
+
+    scripts:
+      main:
+        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/extreme_events.R
+        reference_datasets: ["ERA5", "ACCESS-CM2", "ACCESS-ESM1-5"]
+        regrid_dataset: ERA5
+        mip_name: CMIP
+        timeseries_idx: ["sdiiETCCDI_yr", "r95pETCCDI_yr", "rx5dayETCCDI_yr", "rx1dayETCCDI_yr", "cddETCCDI_yr", "fdETCCDI_yr", "trETCCDI_yr", "txnETCCDI_yr", "txxETCCDI_yr", "tnnETCCDI_yr", "tnxETCCDI_yr"]
+        gleckler_idx: ["sdiiETCCDI_yr", "r95pETCCDI_yr", "rx5dayETCCDI_yr", "rx1dayETCCDI_yr", "cddETCCDI_yr", "fdETCCDI_yr", "trETCCDI_yr", "txnETCCDI_yr", "txxETCCDI_yr", "tnnETCCDI_yr", "tnxETCCDI_yr"]
+        ts_plt: true
+        glc_plt: true
+        base_range: [1981, 2000]
+        analysis_range: [1981, 2000]
