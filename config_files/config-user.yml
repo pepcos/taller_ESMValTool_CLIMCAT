@@ -98,10 +98,11 @@ profile_diagnostic: false
 rootpath:
   default: ~/climate_data
   CMIP5: /esarchive/exp/CMIP5
-  CMIP6: /gpfs/scratch/bsc32/bsc032259/climate_data/CMIP6
+  CMIP6: /gpfs/archive/bsc32/esarchive/scratch/esarchive_ftp/Climcat/climcat/CMIP6
   CMOR_OBS: /esarchive/scratch/jcos/data_files/rawobs
   OBS: /gpfs/scratch/bsc32/bsc032259/climate_data/OBS
   CORDEX: /esarchive/exp/CORDEX
+  OBS6: /gpfs/archive/bsc32/esarchive/scratch/esarchive_ftp/Climcat/climcat/OBS
   RAWOBS: /esarchive/scratch/jcos/data_files/rawobs
   MPIGE: /gpfs/scratch/bsc32/bsc032707/amd_cmip6/esarchive/exp
 
@@ -117,6 +118,7 @@ drs:
   CMOR_OBS: BSC
   OBS: default
   obs4MIPs: ESGF
+  OBS6: BSC
   MPIGE: GPFS
 
 # Example rootpaths and directory structure that showcases the different
