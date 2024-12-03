@@ -110,9 +110,10 @@ OBS6:
   input_dir:
     default: 'Tier{tier}/{dataset}'
     BSC: 'Tier{tier}/{dataset}/{short_name}'
+    CLIMCAT: 'Tier{tier}/{dataset}/{short_name}'
   input_file:
     default: '{project}_{dataset}_{type}_{version}_{mip}_{short_name}[_.]*nc'
-    BSC: '{project}_{dataset}_{type}_{version}_{mip}_{short_name}[_.]*nc'
+    CLIMCAT: '{project}_{dataset}_{type}_{version}_{mip}_{short_name}[_.]*nc'
   output_file: '{project}_{dataset}_{type}_{version}_{mip}_{short_name}'
   cmor_type: 'CMIP6'
 

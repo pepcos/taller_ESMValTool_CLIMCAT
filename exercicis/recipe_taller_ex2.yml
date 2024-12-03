@@ -99,7 +99,7 @@ diagnostics:
         # mip: day
     scripts: #null
       script_eofs:
-        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/eofs.py
+        script: /home/clima/taller_ESMValTool_CLIMCAT/exercicis/eofs.py
         cmap: Reds
 
   projections:
@@ -117,6 +117,6 @@ diagnostics:
     scripts: 
       script_projections:
         ancestors: [EOFS/script_eofs, projections/tas, projections/pr]
-        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/projections.py
+        script: /home/clima/taller_ESMValTool_CLIMCAT/exercicis/projections.py
         cmap: Reds
     

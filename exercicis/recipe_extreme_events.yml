@@ -86,7 +86,7 @@ diagnostics:
 
     scripts:
       main:
-        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/extreme_events.R
+        script: /home/clima/taller_ESMValTool_CLIMCAT/exercicis/extreme_events.R
         reference_datasets: ["ERA5", "ACCESS-CM2", "ACCESS-ESM1-5"]
         regrid_dataset: ERA5
         mip_name: CMIP

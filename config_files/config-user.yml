@@ -84,7 +84,8 @@ save_intermediary_cubes: false
 # Path to custom ``config-developer.yml`` file
 # This can be used to customise project configurations. See
 # ``config-developer.yml`` for an example. Set to ``null`` to use the default.
-config_developer_file: null
+# config_developer_file: null
+config_developer_file: /home/clima/taller_ESMValTool_CLIMCAT/config_files/config-developer.yml
 
 # Use a profiling tool for the diagnostic run --- [false]/true
 # A profiler tells you which functions in your code take most time to run.
@@ -101,6 +102,7 @@ rootpath:
   CORDEX: /data/climcat
   RAWOBS: /data/climcat
   OBS: /data/climcat
+  OBS6: /data/climcat/OBS
 
 # Directory structure for input data --- [default]/ESGF/BADC/DKRZ/ETHZ/etc.
 # This default setting will work if files have been downloaded by ESMValTool
@@ -110,6 +112,7 @@ drs:
   CMIP3: ESGF
   CMIP5: ESGF
   CMIP6: ESGF
+  OBS6: CLIMCAT
   CORDEX: ESGF
   obs4MIPs: ESGF
 

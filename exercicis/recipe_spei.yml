@@ -73,7 +73,7 @@ diagnostics:
       tas: *var
     scripts:
       spi:
-        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/diag_spi.R
+        script: /home/clima/taller_ESMValTool_CLIMCAT/exercicis/diag_spi.R
         ancestors: [pr]
       spei:
-        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/exercicis/diag_spei.R
+        script: /home/clima/taller_ESMValTool_CLIMCAT/exercicis/diag_spei.R
