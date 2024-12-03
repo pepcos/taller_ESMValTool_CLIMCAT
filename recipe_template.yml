@@ -17,7 +17,8 @@ datasets:
 # input_file: '{short_name}_{mip}_{dataset}_{exp}_{ensemble}_{grid}*.nc'
 
 preprocessors:
-  
+  <preproc_name>:
+    <preprocessors...>
 
 diagnostics:
   <diagnostic_name>:

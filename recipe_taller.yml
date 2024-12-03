@@ -22,7 +22,7 @@ documentation:
 
 datasets:
   # 2 ways of calling a dataset:
-  # - {dataset: BCC-CSM2-MR, project: CMIP6, exp: [historical, ssp245], ensemble: r1i1p1f1, grid: gn}
+- {dataset: BCC-CSM2-MR, project: CMIP6, exp: [historical, ssp245], ensemble: r1i1p1f1, grid: gn}
 - dataset: CanESM5
   ensemble: r1i1p1f1
   exp:
@@ -32,17 +32,14 @@ datasets:
   project: CMIP6
 
 preprocessors:
-  mj_eur_anomalies: &general
-    custom_order: true 
+  preproc_general: &general
+    monthly_statistics:
+      operator: mean
     convert_units:
       units: degrees_C
     regrid:
       target_grid: 1x1
-      scheme: #linear
-        reference: esmf_regrid.schemes:ESMFBilinear
-        use_src_mask: True
-    monthly_statistics:
-      operator: mean
+      scheme: linear
     extract_season:
       season: MJ
     extract_region:
@@ -50,6 +47,11 @@ preprocessors:
       end_longitude: 50
       start_latitude: 35
       end_latitude: 70
+    
+
+  mj_preproc_areaavg:
+    custom_order: true
+    <<: *general
     anomalies:
       period: month
       reference:
@@ -66,39 +68,37 @@ preprocessors:
       end_day: 1
       end_month: 1
       end_year: 2055
+    area_statistics:
+      operator: mean
 
-  mj_eur_clim:
-    custom_order: true
+  mj_preproc_:
     <<: *general
-    # seasonal_statistics:
-    #   operator: mean
     climate_statistics:
       operator: mean
-      period: season
-    #   seasons: ["MJ"]
-
-    # mj_eur_:
-    #   custom_order: true
-    #   <<: *general
 
 
 diagnostics:
-  global_vs_regional:
+  diagnostic_1:
     variables:
-      tas_clim:
-        short_name: tos
-        mip: Omon
+      tas_timeseries:
+        short_name: tas
         timerange: 1981/2054
-        preprocessor: mj_eur_clim
-        # mip: day
-      # tas_:
-      #   short_name: tas
-      #   mip: day
-      #   preprocessor: mj_eur_ # Percentile series
-      #   timerange: 1981/2054
+        preprocessor: mj_preproc_areaavg
+        mip: day
+        caption: |
+          {title}; MJ anomalies 1981-2054 (reference 1981-2010).
+        savefig: timeseries.png
+      tas_map:
+        short_name: tas
+        mip: day
+        preprocessor: mj_preproc_ # Percentile series
+        timerange: 1981/2010
+        caption: |
+          {title}; climatology 1981-2010.
+        savefig: map.png
     scripts: #null
       script_example_py:
-        script: /gpfs/scratch/bsc32/bsc032259/taller_ESMValTool_CLIMCAT/esmval_diagnostic.py
+        script: /home/clima/taller_ESMValTool_CLIMCAT/esmval_diagnostic.py
         cmap: Reds
       # script_example_R:
       #   script: /home/clima/taller_ESMValTool_CLIMCAT/esmval_diagnostic.R

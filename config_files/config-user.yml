@@ -25,11 +25,11 @@
 
 # Destination directory where all output will be written
 # Includes log files and performance stats.
-output_dir: /gpfs/scratch/bsc32/bsc032259/output
+output_dir: /home/clima/esmvaltool_output
 
 # Auxiliary data directory
 # Used by some recipes to look for additional datasets.
-auxiliary_data_dir: /esarchive/scratch/jcos/data_files/auxiliary_data
+auxiliary_data_dir: ~/auxiliary_data
 
 # Automatic data download from ESGF --- [never]/when_missing/always
 # Use automatic download of missing CMIP3, CMIP5, CMIP6, CORDEX, and obs4MIPs
@@ -45,7 +45,7 @@ search_esgf: never
 # Make sure to use a directory where you can store multiple GBs of data. Your
 # home directory on a HPC is usually not suited for this purpose, so please
 # change the default value in this case!
-download_dir: /gpfs/scratch/bsc32/bsc032259/climate_data
+download_dir: /data/climcat
 
 # Run at most this many tasks in parallel --- [null]/1/2/3/4/...
 # Set to ``null`` to use the number of available CPUs. If you run out of
@@ -54,7 +54,7 @@ download_dir: /gpfs/scratch/bsc32/bsc032259/climate_data
 # the output directory. Using the number there you can increase the number of
 # parallel tasks again to a reasonable number for the amount of memory
 # available in your system.
-max_parallel_tasks: 4
+max_parallel_tasks: 1
 
 # Log level of the console --- debug/[info]/warning/error
 # For much more information printed to screen set log_level to ``debug``.
@@ -84,7 +84,7 @@ save_intermediary_cubes: false
 # Path to custom ``config-developer.yml`` file
 # This can be used to customise project configurations. See
 # ``config-developer.yml`` for an example. Set to ``null`` to use the default.
-config_developer_file: /gpfs/scratch/bsc32/bsc032259/config_files/config-developer.yml
+config_developer_file: null
 
 # Use a profiling tool for the diagnostic run --- [false]/true
 # A profiler tells you which functions in your code take most time to run.
@@ -96,30 +96,22 @@ profile_diagnostic: false
 # via ``search_esgf``. Lists are also possible. For site-specific entries and
 # more examples, see below. Comment out these when using a site-specific path.
 rootpath:
-  default: ~/climate_data
-  CMIP5: /esarchive/exp/CMIP5
-  CMIP6: /gpfs/archive/bsc32/esarchive/scratch/esarchive_ftp/Climcat/climcat/CMIP6
-  CMOR_OBS: /esarchive/scratch/jcos/data_files/rawobs
-  OBS: /gpfs/scratch/bsc32/bsc032259/climate_data/OBS
-  CORDEX: /esarchive/exp/CORDEX
-  OBS6: /gpfs/archive/bsc32/esarchive/scratch/esarchive_ftp/Climcat/climcat/OBS
-  RAWOBS: /esarchive/scratch/jcos/data_files/rawobs
-  MPIGE: /gpfs/scratch/bsc32/bsc032707/amd_cmip6/esarchive/exp
+  default: /data/climcat
+  CMIP6: /data/climcat
+  CORDEX: /data/climcat
+  RAWOBS: /data/climcat
+  OBS: /data/climcat
 
 # Directory structure for input data --- [default]/ESGF/BADC/DKRZ/ETHZ/etc.
 # This default setting will work if files have been downloaded by ESMValTool
 # via ``search_esgf``. See ``config-developer.yml`` for definitions.  Comment
 # out/replace as per needed.
 drs:
-  CMIP5: BSC
   CMIP3: ESGF
-  CMIP6: DKRZ
-  CORDEX: BSC
-  CMOR_OBS: BSC
-  OBS: default
+  CMIP5: ESGF
+  CMIP6: ESGF
+  CORDEX: ESGF
   obs4MIPs: ESGF
-  OBS6: BSC
-  MPIGE: GPFS
 
 # Example rootpaths and directory structure that showcases the different
 # projects and also the use of lists
