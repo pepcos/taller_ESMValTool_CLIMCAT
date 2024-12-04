@@ -53,16 +53,16 @@ preprocessors:
     monthly_statistics:
       operator: mean 
     extract_region:
-      start_longitude: -70
+      start_longitude: -30
       end_longitude: 0
-      start_latitude: 15
-      end_latitude: 70
+      start_latitude: 30
+      end_latitude: 50
     anomalies:
       period: month
       reference:
         start_day: 1
         start_month: 1
-        start_year: 1950
+        start_year: 1970
         end_day: 1
         end_month: 1
         end_year: 1980
@@ -89,12 +89,10 @@ preprocessors:
 diagnostics:
   EOFS:
     variables:
-      # g500:
-      #   short_name: zg
-      psl:
-        # mip: Amon
+      g500:
+        short_name: zg
         mip: 6hrPlevPt
-        timerange: 1950/1980
+        timerange: 1970/1980
         preprocessor: NAtl_500
         # mip: day
     scripts: #null

@@ -20,9 +20,10 @@ documentation:
     - cos_josep
 
 
-datasets:
+datasets: 
   # 2 ways of calling a dataset:
 - {dataset: BCC-CSM2-MR, project: CMIP6, exp: [historical, ssp245], ensemble: r1i1p1f1, grid: gn}
+- {dataset: ACCESS-CM2, project: CMIP6, exp: [historical, ssp245], ensemble: r1i1p1f1, grid: gn}
 - dataset: CanESM5
   ensemble: r1i1p1f1
   exp:
@@ -48,7 +49,6 @@ preprocessors:
       start_latitude: 35
       end_latitude: 70
     
-
   mj_preproc_areaavg:
     custom_order: true
     <<: *general

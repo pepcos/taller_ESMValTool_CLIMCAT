@@ -41,10 +41,12 @@ def eof_compute(groups, cfg):
         expvar_ratio = rot_var.explained_variance_ratio()
 
         eof1 = components_roteof[0]
-        var1 = expvar_ratio[0]
+        var1 = expvar_ratio[0].data.compute()*100
         pc1 = scores_roteof[0]
 
         print(eof1)
+        print(var1)
+        print(expvar_ratio)
         print(pc1)
 
         iris.save(components_roteof, os.path.join(cfg["work_dir"], "natl_eof.nc"))
